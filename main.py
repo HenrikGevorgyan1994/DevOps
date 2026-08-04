@@ -1,9 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import uvicorn
 
 from db import Item, SessionLocal
 
 app = FastAPI()
+
 
 
 class ItemCreate(BaseModel):
@@ -55,5 +57,8 @@ def get_item(item_id: int):
     finally:
         db.close()
 
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 # run:  uvicorn main:app --reload   -> interactive docs at http://127.0.0.1:8000/docs
